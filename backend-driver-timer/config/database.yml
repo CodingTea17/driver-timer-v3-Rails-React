@@ -82,4 +82,4 @@ production:
   <<: *default
   database: backend-driver-timer_production
   username: backend-driver-timer
-  password: <%= ENV['BACKEND-DRIVER-TIMER_DATABASE_PASSWORD'] %>
+  password: <%= ENV['backend-driver-timer_DATABASE_PASSWORD'] %>
