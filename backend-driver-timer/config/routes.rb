@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  get 'inbound_sms', to: "inbound_sms#create"
+  get 'inbound_message', to: "inbound_message#create"
 end

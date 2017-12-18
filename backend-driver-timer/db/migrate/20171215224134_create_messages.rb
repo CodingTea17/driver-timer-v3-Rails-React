@@ -1,6 +1,6 @@
-class CreateSms < ActiveRecord::Migration[5.1]
+class CreateMessages < ActiveRecord::Migration[5.1]
   def change
-    create_table :sms do |t|
+    create_table :messages do |t|
       t.string :from
       t.string :text
       t.string :message_id

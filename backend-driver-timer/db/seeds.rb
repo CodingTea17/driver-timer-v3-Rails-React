@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Store.destroy_all
+Driver.destroy_all
+Message.destroy_all
+DriverMessage.destroy_all
+
+store = Store.new(:store_number => 177, :password => "password")
+store.save
+
+Driver.create!(:name => "Dawson", :phone_number => "19715702525", :store_id => store.id)

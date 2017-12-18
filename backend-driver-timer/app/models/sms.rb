@@ -1,2 +1,0 @@
-class Sms < ApplicationRecord
-end
