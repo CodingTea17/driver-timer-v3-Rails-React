@@ -1,0 +1,2 @@
+web: sh -c 'cd ../frontend-driver-timer && yarn start'
+api: bundle exec rails s -p 3001
