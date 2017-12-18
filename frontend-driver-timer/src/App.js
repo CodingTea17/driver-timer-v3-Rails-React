@@ -3,23 +3,30 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  getInitialState: function() {
-    return {
-      stores: []
-    }
-  },
+  constructor() {
+    super();
+    this.state = {
+      stores: [],
+    };
+  }
 
-  componentDidMount: function() {
-    var _this = this;
-    this.serverRequest =
-      axios
-        .get("/api/stores")
-        .then(function(result) {
-          _this.setState({
-            stores: result.data.stores
-          });
-        })
-  },
+  componentDidMount() {
+    fetch(`/api/stores`)
+    .then(results => {
+      return results.json()
+    }).then(data => {
+      console.log(data)
+      let stores = data.map((store) => {
+        return(
+          <p key={store.id}>
+            {store.store_number}
+          </p>
+        )
+      })
+      this.setState({stores: stores});
+      console.log("state", this.state.stores)
+    })
+  }
 
   render() {
     return (
@@ -28,9 +35,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-        
-        </p>
+        {this.state.stores}
       </div>
     );
   }
