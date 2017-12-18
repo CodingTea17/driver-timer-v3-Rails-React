@@ -1,4 +1,4 @@
-class InboundMessageController < ApplicationController
+class InboundMessagesController < ApplicationController
   def create
     driver_phone_number = params["msisdn"]
     # binding.pry
