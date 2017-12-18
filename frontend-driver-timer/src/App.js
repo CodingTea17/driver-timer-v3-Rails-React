@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ActionCable from 'actioncable'
 import logo from './logo.svg';
 import './App.css';
 
@@ -11,23 +12,36 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api/stores`)
-    .then(results => {
-      return results.json()
-    }).then(data => {
-      console.log(data)
-      let stores = data.map((store) => {
-        return(
-          <p key={store.id}>
-            {store.store_number}
-          </p>
-        )
+    window.fetch('/api/stores').then(data => {
+      data.json().then(res => {
+        let stores = res.map((store) => {
+          return (
+            <p key={store.id}>
+              {store.store_number}
+            </p>
+          )
+        })
+        this.setState({ stores })
       })
-      this.setState({stores: stores});
-      console.log("state", this.state.stores)
+    })
+
+    const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
+    this.sub = cable.subscriptions.create('StoresChannel', {
+      received: this.handleReceiveNewStores
     })
   }
 
+ handleReceiveNewStores = ({ stores }) => {
+  console.log({stores});
+  let new_stores = stores.map((store) => {
+    return (
+      <p key={store.id}>
+        {store.store_number}
+      </p>
+    )
+  })
+  this.setState({ stores: new_stores })
+}
   render() {
     return (
       <div className="App">
