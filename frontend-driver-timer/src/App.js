@@ -14,14 +14,7 @@ class App extends Component {
   componentDidMount() {
     window.fetch('/api/stores').then(data => {
       data.json().then(res => {
-        let stores = res.map((store) => {
-          return (
-            <p key={store.id}>
-              {store.store_number}
-            </p>
-          )
-        })
-        this.setState({ stores })
+        this.setState({ stores: res })
       })
     })
 
@@ -31,17 +24,24 @@ class App extends Component {
     })
   }
 
- handleReceiveNewStores = ({ stores }) => {
-  console.log({stores});
-  let new_stores = stores.map((store) => {
-    return (
-      <p key={store.id}>
-        {store.store_number}
-      </p>
-    )
-  })
-  this.setState({ stores: new_stores })
-}
+  handleReceiveNewStores = ({ new_store }) => {
+    let updated_stores = this.state.stores.concat(new_store);
+    console.log({updated_stores});
+    this.setState({ stores: updated_stores })
+  }
+
+  render_store_nums = ( )=> {
+    let stores = this.state.stores;
+    let store_elements = stores.map((store) => {
+      return (
+        <p key={store.id}>
+          {store.store_number}
+        </p>
+      )
+    })
+    return store_elements;
+  }
+
   render() {
     return (
       <div className="App">
@@ -49,7 +49,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        {this.state.stores}
+        {this.render_store_nums}
       </div>
     );
   }

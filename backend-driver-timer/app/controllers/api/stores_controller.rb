@@ -8,7 +8,7 @@ class Api::StoresController < ApplicationController
     @new_store = Store.new(:store_number => params[:store_number], :password => params[:password])
     if @new_store.save
       ActionCable.server.broadcast 'stores',
-      stores: Store.all
+      new_store: @new_store
       head :ok
     end
   end
