@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import ActionCable from 'actioncable'
 import './styles/App.css';
-import Store from './components/store.js';
+import Store from './components/Store.js';
+import { Provider } from 'react-redux';
+import AppRouter from './routers/AppRouter';
+import configureStore from './store/configureStore';
 
 class App extends Component {
   constructor() {
@@ -63,4 +66,13 @@ class App extends Component {
   }
 }
 
-export default App;
+
+const store = configureStore();
+
+const jsx = (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
+
+export default jsx;

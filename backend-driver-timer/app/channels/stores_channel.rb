@@ -1,7 +1,7 @@
 class StoresChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
-    stream_from 'stores'
+    stream_from 'store:4:drivers'
   end
 
   def unsubscribed
