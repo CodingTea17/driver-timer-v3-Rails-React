@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ActionCable from 'actioncable'
 import logo from './logo.svg';
 import './App.css';
+import Store from './store.js';
 
 class App extends Component {
   constructor() {
@@ -32,14 +33,13 @@ class App extends Component {
 
   render_store_nums = ( )=> {
     let stores = this.state.stores;
-    let store_elements = stores.map((store) => {
+    return (stores.map((store) => {
       return (
         <p key={store.id}>
           {store.store_number}
         </p>
       )
-    })
-    return store_elements;
+    }))
   }
 
   render() {
@@ -49,7 +49,15 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        {this.render_store_nums}
+        {
+          this.state.stores.map((store, index) => (
+            <Store
+              key={store.id}
+              store={store}
+              count={index + 1}
+            />
+          ))
+        }
       </div>
     );
   }
