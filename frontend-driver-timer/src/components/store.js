@@ -5,7 +5,7 @@ function Store(props){
   return (
     <div>
       <NavLink
-        to={`/store/${props.store.id}`}
+        to={`/store/${props.store.store_number}`}
         activeClassName='is-active'
       >
         {props.store.store_number}

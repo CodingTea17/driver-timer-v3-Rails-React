@@ -1,6 +1,6 @@
 class Api::DriversController < ApplicationController
   def index
-    @store = Store.find(params[:store_id])
+    @store = Store.where(:store_number => params[:store_id]).first
     @drivers = @store.drivers
     json_response(@drivers)
   end

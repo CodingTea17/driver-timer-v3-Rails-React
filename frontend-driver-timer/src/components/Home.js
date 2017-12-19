@@ -40,21 +40,16 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <ul>
-          {
-            this.state.stores.map((store, index) => (
-              <Store
-                key={store.id}
-                store={store}
-                count={index + 1}
-              />
-            ))
-          }
-        </ul>
+      <div>
+        {
+          this.state.stores.map((store, index) => (
+            <Store
+              key={store.id}
+              store={store}
+              count={index + 1}
+            />
+          ))
+        }
       </div>
     );
   }
