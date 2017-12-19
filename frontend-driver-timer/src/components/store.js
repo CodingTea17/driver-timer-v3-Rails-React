@@ -1,10 +1,16 @@
 import React from "react";
+import { NavLink } from 'react-router-dom';
 
 function Store(props){
   return (
-    <li>
-      {props.store.store_number}
-    </li>
+    <div>
+      <NavLink
+        to={`/store/${props.store.id}`}
+        activeClassName='is-active'
+      >
+        {props.store.store_number}
+      </NavLink>
+    </div>
   );
 }
 

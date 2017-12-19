@@ -4,7 +4,7 @@ export default () => {
   // Store creation
   const store = createStore(
     combineReducers({
-      
+
     })
   );
 
