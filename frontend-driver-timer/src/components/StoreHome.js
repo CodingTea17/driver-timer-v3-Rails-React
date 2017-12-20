@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Driver from './Driver';
-import ActionCable from 'actioncable';
 
 class StoreHome extends Component {
   constructor(props) {
@@ -28,7 +27,6 @@ class StoreHome extends Component {
                 key={driver.id}
                 driver={driver}
                 count={index + 1}
-                store
               />
             ))
           }
