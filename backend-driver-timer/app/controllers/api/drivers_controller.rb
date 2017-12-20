@@ -4,7 +4,17 @@ class Api::DriversController < ApplicationController
     @drivers = @store.drivers
     json_response(@drivers)
   end
-  #
+
+  def show
+    @driver = Driver.find(params[:id])
+    json_response(@driver)
+  end
+
+  def last_message
+    @driver = Driver.find(params[:driver_id])
+    @last_message = @driver.messages.last
+    json_response(@last_message)
+  end
   # def create
   #   @new_store = Store.new(:store_number => params[:store_number], :password => params[:password])
   #   if @new_store.save
