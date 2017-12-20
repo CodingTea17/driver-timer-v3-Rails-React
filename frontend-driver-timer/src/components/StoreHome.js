@@ -13,7 +13,6 @@ class StoreHome extends Component {
   componentDidMount() {
     window.fetch(`/api/stores/${this.props.match.params.id}/drivers`).then(data => {
       data.json().then(res => {
-        console.log(res);
         this.setState({ drivers: res })
       })
     })
@@ -29,7 +28,7 @@ class StoreHome extends Component {
                 key={driver.id}
                 driver={driver}
                 count={index + 1}
-                latest-time={10}
+                store
               />
             ))
           }

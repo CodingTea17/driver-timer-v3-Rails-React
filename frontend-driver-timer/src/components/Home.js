@@ -34,7 +34,6 @@ class Home extends Component {
 
   handleReceiveNewStores = ({ new_store }) => {
     let updated_stores = this.state.stores.concat(new_store);
-    console.log({updated_stores});
     this.setState({ stores: updated_stores })
   }
 

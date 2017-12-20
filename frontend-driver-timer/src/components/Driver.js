@@ -12,7 +12,6 @@ class Driver extends Component {
   componentDidMount() {
     window.fetch(`/api/stores/177/drivers/4/last_message`).then(data => {
       data.json().then(last_message => {
-        console.log(last_message);
         this.setState({ last_message })
       })
     })
@@ -21,7 +20,7 @@ class Driver extends Component {
   render() {
     return (
       <div>
-        <h1>Your Drivers</h1>
+        {this.state.last_message.text}
       </div>
     );
   }
