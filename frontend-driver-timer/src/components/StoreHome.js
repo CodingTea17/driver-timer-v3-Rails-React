@@ -5,12 +5,14 @@ class StoreHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drivers: []
+      drivers: [],
+      store_number: this.props.match.params.id
+
     };
   }
 
   componentDidMount() {
-    window.fetch(`/api/stores/${this.props.match.params.id}/drivers`).then(data => {
+    window.fetch(`/api/stores/${this.state.store_number}/drivers`).then(data => {
       data.json().then(res => {
         this.setState({ drivers: res })
       })
@@ -26,6 +28,7 @@ class StoreHome extends Component {
               <Driver
                 key={driver.id}
                 driver={driver}
+                store-number={this.state.store_number}
                 count={index + 1}
               />
             ))

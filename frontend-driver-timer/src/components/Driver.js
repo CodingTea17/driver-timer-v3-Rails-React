@@ -6,12 +6,13 @@ class Driver extends Component {
     super(props);
     this.state = {
       last_message: {},
-      driver: this.props.driver
+      driver: this.props.driver,
+      store_number: this.props.store_number
     };
   }
 
   componentDidMount() {
-    window.fetch(`/api/stores/177/drivers/4/last_message`).then(data => {
+    window.fetch(`/api/stores/${this.state.store_number}/drivers/${this.state.driver.id}/last_message`).then(data => {
       data.json().then(last_message => {
         this.setState({ last_message })
       })
