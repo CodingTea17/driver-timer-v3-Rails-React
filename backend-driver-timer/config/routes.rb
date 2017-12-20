@@ -8,5 +8,6 @@ Rails.application.routes.draw do
         get 'last_message', to: "drivers#last_message"
       end
     end
+    resources :messages, only: [:show]
   end
 end

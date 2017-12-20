@@ -24,7 +24,12 @@ class Driver extends Component {
 
   handleReceiveNewDriverMessage = ({ new_driver_message }) => {
     if (new_driver_message.driver_id === this.state.driver.id ) {
-      console.log(new_driver_message);
+      window.fetch(`/api/messages/${new_driver_message.message_id}`).then(data => {
+        data.json().then(new_message => {
+          console.log(new_message)
+          this.setState({ last_message: new_message })
+        })
+      })
     }
     // let updated_stores = this.state.stores.concat(new_store);
     // this.setState({ stores: updated_stores })
