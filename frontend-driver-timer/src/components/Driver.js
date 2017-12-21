@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sound from 'react-sound';
+import ReactCountdownClock from 'react-countdown-clock';
 import notification from './notification_sound.mp3';
 import ActionCable from 'actioncable';
 
@@ -44,13 +45,19 @@ class Driver extends Component {
   }
 
   render() {
+    let playSound = null;
+    let startCountdown = null;
+    if(this.state.play_sound) {
+      playSound = <Sound url={notification} playStatus={Sound.status.PLAYING} onFinishedPlaying={this.hasNotified}/>
+      startCountdown = <ReactCountdownClock seconds={parseInt(this.state.last_message.text, 10)}
+                 color="#000"
+                 alpha={0.9}
+                 size={300}
+                  />}
     return (
       <div>
-        {this.state.play_sound && <Sound
-                                      url={notification}
-                                      playStatus={Sound.status.PLAYING}
-                                      onFinishedPlaying={this.hasNotified}
-                                    />}
+        {playSound}
+        {startCountdown}
         <h2>{this.state.driver.name}</h2>
         <h5>{this.state.last_message.text}</h5>
       </div>
