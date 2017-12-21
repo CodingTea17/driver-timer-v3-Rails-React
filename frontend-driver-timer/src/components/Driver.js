@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Sound from 'react-sound';
 import ActionCable from 'actioncable';
 
 class Driver extends Component {
@@ -7,7 +8,8 @@ class Driver extends Component {
     this.state = {
       last_message: {},
       driver: this.props.driver,
-      store_number: this.props.store_number
+      store_number: this.props.store_number,
+      play_sound: false
     };
   }
 
@@ -27,18 +29,27 @@ class Driver extends Component {
     if (new_driver_message.driver_id === this.state.driver.id ) {
       window.fetch(`/api/messages/${new_driver_message.message_id}`).then(data => {
         data.json().then(new_message => {
-          console.log(new_message)
-          this.setState({ last_message: new_message })
+          this.setState({
+            last_message: new_message,
+            play_sound: true
+          })
         })
       })
     }
-    // let updated_stores = this.state.stores.concat(new_store);
-    // this.setState({ stores: updated_stores })
+  }
+
+  hasNotified = () => {
+    this.setState({ play_sound: false })
   }
 
   render() {
     return (
       <div>
+        {this.state.play_sound && <Sound
+                                      url="./notification.mp3"
+                                      playStatus={Sound.status.PLAYING}
+                                      onFinishedPlaying={this.hasNotified}
+                                    />}
         <h2>{this.state.driver.name}</h2>
         <h5>{this.state.last_message.text}</h5>
       </div>
