@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sound from 'react-sound';
+import notification from './notification_sound.mp3';
 import ActionCable from 'actioncable';
 
 class Driver extends Component {
@@ -46,7 +47,7 @@ class Driver extends Component {
     return (
       <div>
         {this.state.play_sound && <Sound
-                                      url="./notification.mp3"
+                                      url={notification}
                                       playStatus={Sound.status.PLAYING}
                                       onFinishedPlaying={this.hasNotified}
                                     />}
