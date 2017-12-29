@@ -10,8 +10,9 @@ class Driver extends Component {
     this.state = {
       last_message: {},
       driver: this.props.driver,
-      store_number: this.props.store_number,
-      play_sound: false
+      store_number: this.props.storeNumber,
+      play_sound: false,
+      start_countdown: false
     };
   }
 
@@ -29,11 +30,16 @@ class Driver extends Component {
 
   handleReceiveNewDriverMessage = ({ new_driver_message }) => {
     if (new_driver_message.driver_id === this.state.driver.id ) {
+      this.setState({
+        play_sound: false,
+        start_countdown: false
+      })
       window.fetch(`/api/messages/${new_driver_message.message_id}`).then(data => {
         data.json().then(new_message => {
           this.setState({
             last_message: new_message,
-            play_sound: true
+            play_sound: true,
+            start_countdown: true
           })
         })
       })
@@ -44,22 +50,30 @@ class Driver extends Component {
     this.setState({ play_sound: false })
   }
 
+  hasCountedDown = () => {
+    this.setState({ start_countdown: false })
+  }
+
   render() {
-    let playSound = null;
-    let startCountdown = null;
-    if(this.state.play_sound) {
-      playSound = <Sound url={notification} playStatus={Sound.status.PLAYING} onFinishedPlaying={this.hasNotified}/>
-      startCountdown = <ReactCountdownClock seconds={parseInt(this.state.last_message.text, 10)}
-                 color="#000"
-                 alpha={0.9}
-                 size={300}
-                  />}
     return (
       <div>
-        {playSound}
-        {startCountdown}
-        <h2>{this.state.driver.name}</h2>
-        <h5>{this.state.last_message.text}</h5>
+        { this.state.play_sound && <Sound
+                                    url={notification}
+                                    playStatus={Sound.status.PLAYING}
+                                    onFinishedPlaying={this.hasNotified}
+                                    />
+        }
+        { this.state.start_countdown && <ReactCountdownClock
+                                          seconds={parseInt(this.state.last_message.text, 10)*60}
+                                          showMilliseconds={false}
+                                          color="#000"
+                                          alpha={0.9}
+                                          size={300}
+                                          onComplete={this.hasCountedDown}
+                                        />
+        }
+        <h2>{ this.state.driver.name }</h2>
+        <h5>{ this.state.last_message.text }</h5>
       </div>
     );
   }

@@ -28,7 +28,7 @@ class StoreHome extends Component {
               <Driver
                 key={driver.id}
                 driver={driver}
-                store-number={this.state.store_number}
+                storeNumber={this.state.store_number}
                 count={index + 1}
               />
             ))
