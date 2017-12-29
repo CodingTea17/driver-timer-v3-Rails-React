@@ -24,3 +24,12 @@ The idea was to create a simple application to increase delivery efficiency. Dri
   * Restructure the project to a RESTful backend API and a modular frontend collection of React components.
   * Implement full CRUD functionality for managing drivers.
   * Implement Websockets to get live data for each store's drivers.
+
+
+#### Setup (Development)
+  * After successfully cloning the project `cd driver-timer-v3-Rails-React/backend-driver-timer` and execute `bundle install`. This will install all the require gems inside of the rails project directory.
+  * This project requires access to a [Nexmo](https://www.nexmo.com/) SMS phone number. It is not free. However, for the purpose of this project it will only cost ~$1.00 per month because we are only concerned with incoming SMS messages.
+  * To use the Nexmo phone number you must set the webhook for incoming messages to be sent to.
+    * ![./setup_images/numbers.png]
+  * This requires you to install ngrok which allows us to open a secure tunnel to localhost allowing Nexmo's servers to find our locally running project. `ngrok http 3001`   
+  * Once the webhook is setup run `rails start` this is a rake task which fires up the rails backend and launches the react frontend.
