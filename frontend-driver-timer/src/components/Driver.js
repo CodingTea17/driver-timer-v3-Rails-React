@@ -19,7 +19,17 @@ class Driver extends Component {
   componentDidMount() {
     window.fetch(`/api/stores/${this.state.store_number}/drivers/${this.state.driver.id}/last_message`).then(data => {
       data.json().then(last_message => {
-        this.setState({ last_message })
+        const now = new Date().getTime();
+        const estimatedReturnTime = Date.parse(last_message.message_timestamp) + (last_message.text * 60 * 1000);
+        if (now < estimatedReturnTime) {
+          this.setState({
+            last_message,
+            secondsToReturn: ((estimatedReturnTime - now) / 1000),
+            start_countdown: true
+          })
+        } else {
+          this.setState({ last_message });
+        }
       })
     })
     const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
@@ -39,7 +49,8 @@ class Driver extends Component {
           this.setState({
             last_message: new_message,
             play_sound: true,
-            start_countdown: true
+            start_countdown: true,
+            secondsToReturn: (parseInt(new_message.text, 10) * 60)
           })
         })
       })
@@ -57,23 +68,22 @@ class Driver extends Component {
   render() {
     return (
       <div>
+        <h2>{ this.state.driver.name }</h2>
         { this.state.play_sound && <Sound
-                                    url={notification}
-                                    playStatus={Sound.status.PLAYING}
-                                    onFinishedPlaying={this.hasNotified}
+                                    url={ notification }
+                                    playStatus={ Sound.status.PLAYING }
+                                    onFinishedPlaying={ this.hasNotified }
                                     />
         }
         { this.state.start_countdown && <ReactCountdownClock
-                                          seconds={parseInt(this.state.last_message.text, 10)*60}
-                                          showMilliseconds={false}
+                                          seconds={ this.state.secondsToReturn }
+                                          showMilliseconds={ false }
                                           color="#000"
-                                          alpha={0.9}
-                                          size={300}
-                                          onComplete={this.hasCountedDown}
+                                          alpha={ 0.9 }
+                                          size={ 300 }
+                                          onComplete={ this.hasCountedDown }
                                         />
         }
-        <h2>{ this.state.driver.name }</h2>
-        <h5>{ this.state.last_message.text }</h5>
       </div>
     );
   }
