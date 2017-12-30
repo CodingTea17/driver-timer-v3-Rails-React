@@ -29,7 +29,7 @@ The idea was to create a simple application to increase delivery efficiency. Dri
 #### Setup (Development)
   * After successfully cloning the project, `cd driver-timer-v3-Rails-React/backend-driver-timer` and execute `bundle install`. This will install all the required ruby gems inside of the rails project directory.
   * This project requires access to a [Nexmo](https://www.nexmo.com/) SMS phone number. It is not free. However, for the purpose of this project it will only cost ~$1.00 per month because we are only concerned with incoming SMS messages.
-  * You to install ngrok which allows us to open a secure tunnel to localhost so that Nexmo's servers can find our locally running project. Once installed run `ngrok http 3001` (the port which the rails backend will be operating on).   
+  * You need to install ngrok which allows us to open a secure tunnel to localhost so that Nexmo's servers can find our locally running project. Once installed run `ngrok http 3001` (the port which the rails backend will be operating on).   
   * To use the Nexmo phone number you must set the webhook for incoming messages. Start by logging into your Nexmo account.
 
     ![](./setup_images/numbers.png "Click the 'Numbers' tab in the navbar")

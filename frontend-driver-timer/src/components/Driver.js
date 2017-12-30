@@ -12,7 +12,8 @@ class Driver extends Component {
       driver: this.props.driver,
       store_number: this.props.storeNumber,
       play_sound: false,
-      start_countdown: false
+      display_countdown: false,
+      countdownPaused: false
     };
   }
 
@@ -25,10 +26,15 @@ class Driver extends Component {
           this.setState({
             last_message,
             secondsToReturn: ((estimatedReturnTime - now) / 1000),
-            start_countdown: true
+            countdownPaused: false,
+            display_countdown: true
           })
         } else {
-          this.setState({ last_message });
+          this.setState({
+            last_message,
+            countdownPaused: true,
+            display_countdown: true
+          });
         }
       })
     })
@@ -42,14 +48,15 @@ class Driver extends Component {
     if (new_driver_message.driver_id === this.state.driver.id ) {
       this.setState({
         play_sound: false,
-        start_countdown: false
+        display_countdown: false
       })
       window.fetch(`/api/messages/${new_driver_message.message_id}`).then(data => {
         data.json().then(new_message => {
           this.setState({
             last_message: new_message,
             play_sound: true,
-            start_countdown: true,
+            display_countdown: true,
+            countdownPaused: false,
             secondsToReturn: (parseInt(new_message.text, 10) * 60)
           })
         })
@@ -62,7 +69,8 @@ class Driver extends Component {
   }
 
   hasCountedDown = () => {
-    this.setState({ start_countdown: false })
+    this.setState({ display_countdown: false });
+    this.setState({ countdownPaused: true, display_countdown: true });
   }
 
   render() {
@@ -75,13 +83,16 @@ class Driver extends Component {
                                     onFinishedPlaying={ this.hasNotified }
                                     />
         }
-        { this.state.start_countdown && <ReactCountdownClock
+        { this.state.display_countdown && <ReactCountdownClock
                                           seconds={ this.state.secondsToReturn }
                                           showMilliseconds={ false }
                                           color="#000"
                                           alpha={ 0.9 }
-                                          size={ 300 }
+                                          size={ 250 }
+                                          paused={ this.state.countdownPaused }
+                                          pausedText={ "00:00" }
                                           onComplete={ this.hasCountedDown }
+                                          weight={ 33 }
                                         />
         }
       </div>
