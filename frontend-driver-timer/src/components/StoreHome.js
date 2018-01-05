@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Driver from './Driver';
 
 // const driverStyle = {
-//   position: 'relative',
-//   width: '300px',
-//   height: '300px'
+//   width: '33%'
 // };
 
 class StoreHome extends Component {
