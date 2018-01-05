@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import Driver from './Driver';
 
+// const driverStyle = {
+//   position: 'relative',
+//   width: '300px',
+//   height: '300px'
+// };
+
 class StoreHome extends Component {
   constructor(props) {
     super(props);

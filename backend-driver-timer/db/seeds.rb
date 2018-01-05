@@ -14,3 +14,4 @@ store = Store.new(:store_number => 177, :password => "password")
 store.save
 
 Driver.create!(:name => "Dawson", :phone_number => "19715702525", :store_id => store.id)
+Driver.create!(:name => "Mark", :phone_number => "14349892005", :store_id => store.id)

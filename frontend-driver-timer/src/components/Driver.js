@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sound from 'react-sound';
-import ReactCountdownClock from 'react-countdown-clock';
+import Clock from './Clock';
 import notification from './notification_sound.mp3';
 import ActionCable from 'actioncable';
 
@@ -11,9 +11,7 @@ class Driver extends Component {
       last_message: {},
       driver: this.props.driver,
       store_number: this.props.storeNumber,
-      play_sound: false,
-      display_countdown: false,
-      countdownPaused: false
+      play_sound: false
     };
   }
 
@@ -22,19 +20,15 @@ class Driver extends Component {
       data.json().then(last_message => {
         const now = new Date().getTime();
         const estimatedReturnTime = Date.parse(last_message.message_timestamp) + (last_message.text * 60 * 1000);
+        // console.log("est Time:", (new Date(estimatedReturnTime)).toUTCString());
+        // console.log("sent Time:", (new Date(last_message.message_timestamp).toUTCString()));
         if (now < estimatedReturnTime) {
           this.setState({
             last_message,
-            secondsToReturn: ((estimatedReturnTime - now) / 1000),
-            countdownPaused: false,
-            display_countdown: true
+            estimatedReturnTime
           })
         } else {
-          this.setState({
-            last_message,
-            countdownPaused: true,
-            display_countdown: true
-          });
+          this.setState({ last_message });
         }
       })
     })
@@ -46,18 +40,14 @@ class Driver extends Component {
 
   handleReceiveNewDriverMessage = ({ new_driver_message }) => {
     if (new_driver_message.driver_id === this.state.driver.id ) {
-      this.setState({
-        play_sound: false,
-        display_countdown: false
-      })
+      this.setState({ play_sound: false })
       window.fetch(`/api/messages/${new_driver_message.message_id}`).then(data => {
         data.json().then(new_message => {
+          const estimatedReturnTime = Date.parse(new_message.message_timestamp) + (new_message.text * 60 * 1000);
           this.setState({
+            estimatedReturnTime,
             last_message: new_message,
-            play_sound: true,
-            display_countdown: true,
-            countdownPaused: false,
-            secondsToReturn: (parseInt(new_message.text, 10) * 60)
+            play_sound: true
           })
         })
       })
@@ -68,33 +58,21 @@ class Driver extends Component {
     this.setState({ play_sound: false })
   }
 
-  hasCountedDown = () => {
-    this.setState({ display_countdown: false });
-    this.setState({ countdownPaused: true, display_countdown: true });
-  }
-
   render() {
     return (
       <div>
         <h2>{ this.state.driver.name }</h2>
         { this.state.play_sound && <Sound
-                                    url={ notification }
-                                    playStatus={ Sound.status.PLAYING }
-                                    onFinishedPlaying={ this.hasNotified }
+                                      url={ notification }
+                                      playStatus={ Sound.status.PLAYING }
+                                      onFinishedPlaying={ this.hasNotified }
                                     />
         }
-        { this.state.display_countdown && <ReactCountdownClock
-                                          seconds={ this.state.secondsToReturn }
-                                          showMilliseconds={ false }
-                                          color="#000"
-                                          alpha={ 0.9 }
-                                          size={ 250 }
-                                          paused={ this.state.countdownPaused }
-                                          pausedText={ "00:00" }
-                                          onComplete={ this.hasCountedDown }
-                                          weight={ 33 }
-                                        />
-        }
+
+        <Clock
+          returnTime={ new Date(this.state.estimatedReturnTime) }
+          sentTime={ new Date(this.state.last_message.message_timestamp) }
+        />
       </div>
     );
   }
