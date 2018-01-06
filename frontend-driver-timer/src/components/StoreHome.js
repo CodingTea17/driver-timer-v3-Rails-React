@@ -33,13 +33,15 @@ class StoreHome extends Component {
 
     return (
       <div style={ {textAlign: "center"} }>
-        <div style={ {backgroundColor: '#b71c1c', height: '4em', color: 'white'} }>
-          <p style={ {height: '100%', fontSize: '3em', fontWeight: '800', paddingBottom: '0.5px'} }>Your Drivers</p>
-        </div>
+        <Segment color="red" style={{borderRadius: "0"}} inverted>
+          <Menu inverted secondary>
+            <h1>Store {this.state.store_number}</h1>
+          </Menu>
+        </Segment>
         <Sidebar.Pushable as={Segment}>
-          <Sidebar as={Menu} animation='scale down' width='thin' visible={ visible } icon='labeled' vertical inverted>
+          <Sidebar as={Menu} animation='scale down' width='thin' visible={visible} icon='labeled' vertical inverted>
             <Menu.Item name='newdriver'>
-              <Modal trigger={<Button>Add Driver</Button>}>
+              <Modal trigger={<Button inverted>Add Driver</Button>}>
                 <Modal.Header>Add a New Driver</Modal.Header>
                 <Modal.Content>
                   <Modal.Description>
@@ -81,3 +83,8 @@ class StoreHome extends Component {
 }
 
 export default StoreHome;
+
+
+// <div style={ {backgroundColor: '#b71c1c', height: '4em', color: 'white'} }>
+//   <p style={ {height: '100%', fontSize: '3em', fontWeight: '800', paddingBottom: '0.5px'} }>Your Drivers</p>
+// </div>
