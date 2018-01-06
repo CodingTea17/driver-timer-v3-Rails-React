@@ -28,7 +28,7 @@ class Driver extends Component {
       })
     })
     const cable = ActionCable.createConsumer('ws://localhost:3001/api/cable')
-    this.sub = cable.subscriptions.create('DriverMessagesChannel', {
+    this.sub = cable.subscriptions.create({channel: 'DriverMessagesChannel', store: this.state.store_number}, {
       received: this.handleReceiveNewDriverMessage
     })
     console.log("subbed");

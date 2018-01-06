@@ -1,7 +1,7 @@
 class DriverMessagesChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
-    stream_from 'messages'
+    stream_from "store-#{params['store']}:messages"
   end
 
   def unsubscribed
