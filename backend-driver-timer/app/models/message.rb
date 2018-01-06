@@ -1,3 +1,3 @@
 class Message < ApplicationRecord
-  has_one :driver_message
+  belongs_to :driver
 end
