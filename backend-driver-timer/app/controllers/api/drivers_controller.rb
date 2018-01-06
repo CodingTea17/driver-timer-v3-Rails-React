@@ -16,6 +16,11 @@ class Api::DriversController < ApplicationController
     json_response(@driver)
   end
 
+  def destroy
+    driver = Driver.find(params[:id])
+    driver.destroy
+  end
+
   def last_message
     @driver = Driver.find(params[:driver_id])
     @last_message = @driver.messages.last

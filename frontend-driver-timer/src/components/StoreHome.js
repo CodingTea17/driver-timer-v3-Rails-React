@@ -37,7 +37,9 @@ class StoreHome extends Component {
   }
 
   handleDeleteDriver = (driver_id) => {
-    console.log("deleted", driver_id);
+    fetch(`/api/stores/${this.state.store_number}/drivers/${driver_id}`, {
+      method: 'DELETE'
+    });
   }
 
   updateFormState = (e) => {
