@@ -5,7 +5,8 @@ class CreateMessages < ActiveRecord::Migration[5.1]
       t.string :text
       t.string :message_id
       t.datetime :message_timestamp
-
+      t.integer :driver_id
+      
       t.timestamps
     end
   end

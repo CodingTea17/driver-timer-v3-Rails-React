@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CircularProgressBar from './CircularProgressCircle';
-// import './Clock.css';
 
 class Clock extends Component {
   constructor(props) {

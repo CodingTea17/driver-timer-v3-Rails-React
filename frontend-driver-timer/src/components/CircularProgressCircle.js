@@ -36,38 +36,38 @@ class CircularProgressCircle extends Component {
 
     return (
       <svg
-          width={ this.props.sqSize }
-          height={ this.props.sqSize }
-          viewBox={ viewBox }
+        width={ this.props.sqSize }
+        height={ this.props.sqSize }
+        viewBox={ viewBox }
       >
-          <circle
-            style={ backgroundCircle }
-            cx={ this.props.sqSize / 2 }
-            cy={ this.props.sqSize / 2 }
-            r={ radius }
-            strokeWidth={ `${this.props.strokeWidth}px` }
-          />
-          <circle
-            cx={ this.props.sqSize / 2 }
-            cy={ this.props.sqSize / 2 }
-            r={ radius }
-            strokeWidth={ `${parseInt(this.props.strokeWidth, 10) - 2}px` }
-            transform={`rotate(270 ${this.props.sqSize / 2} ${this.props.sqSize / 2})`}
-            style={{
-              stroke: progressCircle.stroke,
-              fill: progressCircle.fill,
-              strokeDasharray: dashArray,
-              strokeDashoffset: dashOffset
-            }}
-          />
-          <text
-            style={ circleText }
-            x="50%"
-            y="50%"
-            dy=".3em"
-            textAnchor="middle">
-            { `${this.props.timeLeft}` }
-          </text>
+        <text
+          style={ circleText }
+          x="50%"
+          y="50%"
+          dy=".3em"
+          textAnchor="middle">
+          { `${this.props.timeLeft}` }
+        </text>
+        <circle
+          style={ backgroundCircle }
+          cx={ this.props.sqSize / 2 }
+          cy={ this.props.sqSize / 2 }
+          r={ radius }
+          strokeWidth={ `${this.props.strokeWidth}px` }
+        />
+        <circle
+          cx={ this.props.sqSize / 2 }
+          cy={ this.props.sqSize / 2 }
+          r={ radius }
+          strokeWidth={ `${parseInt(this.props.strokeWidth, 10) - 2}px` }
+          transform={`rotate(270 ${this.props.sqSize / 2} ${this.props.sqSize / 2})`}
+          style={{
+            stroke: progressCircle.stroke,
+            fill: progressCircle.fill,
+            strokeDasharray: dashArray,
+            strokeDashoffset: dashOffset
+          }}
+        />
       </svg>
     );
   }

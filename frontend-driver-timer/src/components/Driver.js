@@ -33,19 +33,28 @@ class Driver extends Component {
     })
   }
 
-  handleReceiveNewDriverMessage = ({ new_driver_message }) => {
-    if (new_driver_message.driver_id === this.state.driver.id ) {
+  handleReceiveNewDriverMessage = ({ new_message }) => {
+    console.log(new_message);
+    if (new_message.driver_id === this.state.driver.id ) {
+      // Currently here to ensure the sound is stopped. Keeps the application from skipping a message due to back-to-back messages
       this.setState({ play_sound: false })
-      window.fetch(`/api/messages/${new_driver_message.message_id}`).then(data => {
-        data.json().then(new_message => {
-          const estimatedReturnTime = Date.parse(new_message.message_timestamp) + (new_message.text * 60 * 1000);
-          this.setState({
-            estimatedReturnTime,
-            last_message: new_message,
-            play_sound: true
-          })
-        })
+      const estimatedReturnTime = Date.parse(new_message.message_timestamp) + (new_message.text * 60 * 1000);
+      this.setState({
+        estimatedReturnTime,
+        last_message: new_message,
+        play_sound: true
       })
+      // DEPRECIATED: it would use the driver id to then make ANOTHER fetch for the actual message? What was I thinking haha
+      // window.fetch(`/api/messages/${new_driver_message.message_id}`).then(data => {
+      //   data.json().then(new_message => {
+      //     const estimatedReturnTime = Date.parse(new_message.message_timestamp) + (new_message.text * 60 * 1000);
+      //     this.setState({
+      //       estimatedReturnTime,
+      //       last_message: new_message,
+      //       play_sound: true
+      //     })
+      //   })
+      // })
     }
   }
 

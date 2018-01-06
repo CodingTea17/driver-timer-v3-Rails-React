@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20171218185734) do
     t.string "text"
     t.string "message_id"
     t.datetime "message_timestamp"
+    t.integer "driver_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
