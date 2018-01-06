@@ -1,10 +1,10 @@
-class InboundMessagesController < ApplicationController
+class Api::InboundMessagesController < ApplicationController
   def create
     driver_phone_number = params["msisdn"]
     driver = Driver.where(:phone_number => driver_phone_number).first
 
     @new_message = driver.messages.new(:from => driver_phone_number,:text => params["text"],:message_id => params["messageId"],:message_timestamp => params["message-timestamp"])
-    
+
     if @new_message.save!
       ActionCable.server.broadcast 'messages',
       new_message: @new_message

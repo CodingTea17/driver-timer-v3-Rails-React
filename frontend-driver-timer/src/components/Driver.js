@@ -27,10 +27,11 @@ class Driver extends Component {
         });
       })
     })
-    const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
+    const cable = ActionCable.createConsumer('ws://localhost:3001/api/cable')
     this.sub = cable.subscriptions.create('DriverMessagesChannel', {
       received: this.handleReceiveNewDriverMessage
     })
+    console.log("subbed");
   }
 
   handleReceiveNewDriverMessage = ({ new_message }) => {
