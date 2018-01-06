@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Sidebar, Menu, Segment, Grid, Button, Header, Modal } from 'semantic-ui-react'
+import { Icon, Sidebar, Menu, Segment, Grid, Button, Header, Modal } from 'semantic-ui-react'
 
 import Driver from './Driver';
 
@@ -28,17 +28,24 @@ class StoreHome extends Component {
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
+  handleDeleteDriver = (driver_id) => {
+    console.log("deleted", driver_id);
+  }
+
   render() {
     const { visible } = this.state;
 
     return (
       <div style={ {textAlign: "center"} }>
-        <Segment color="red" style={{borderRadius: "0"}} inverted>
-          <Menu inverted secondary>
+        <Menu inverted borderless={true} style={{borderRadius: "0", margin: "0"}}>
+          <Menu.Item>
+            <Icon inverted name="list layout" size="large" onClick={this.toggleVisibility} />
+          </Menu.Item>
+          <Menu.Item>
             <h1>Store {this.state.store_number}</h1>
-          </Menu>
-        </Segment>
-        <Sidebar.Pushable as={Segment}>
+          </Menu.Item>
+        </Menu>
+        <Sidebar.Pushable as={Segment} style={{margin: "0"}}>
           <Sidebar as={Menu} animation='scale down' width='thin' visible={visible} icon='labeled' vertical inverted>
             <Menu.Item name='newdriver'>
               <Modal trigger={<Button inverted>Add Driver</Button>}>
@@ -50,13 +57,26 @@ class StoreHome extends Component {
                 </Modal.Content>
               </Modal>
             </Menu.Item>
-            <Menu.Item name='driverlist'>
-              List of current drivers
-            </Menu.Item>
+            <div style={{overflow: "auto"}}>
+              {
+                (this.state.drivers && this.state.drivers.length) && this.state.drivers.map((driver, index) => (
+                  <Menu.Item key={driver.id} style={{textAlign: "left"}}>
+                    <Icon
+                      style={{display: "inline-block"}}
+                      name="minus square outline"
+                      size="large"
+                      onClick={this.handleDeleteDriver(driver.id)}
+                    />
+                    <div style={{display: "inline-block", verticalAlign: "baseline", fontSize: "18px", float: "right"}}>
+                      {driver.name}
+                    </div>
+                  </Menu.Item>
+                ))
+              }
+            </div>
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
-              <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
               <Grid columns={4}>
                 <Grid.Row>
                   {

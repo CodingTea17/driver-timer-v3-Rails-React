@@ -31,11 +31,9 @@ class Driver extends Component {
     this.sub = cable.subscriptions.create({channel: 'DriverMessagesChannel', store: this.state.store_number}, {
       received: this.handleReceiveNewDriverMessage
     })
-    console.log("subbed");
   }
 
   handleReceiveNewDriverMessage = ({ new_message }) => {
-    console.log(new_message);
     if (new_message.driver_id === this.state.driver.id ) {
       // Currently here to ensure the sound is stopped. Keeps the application from skipping a message due to back-to-back messages
       this.setState({ play_sound: false })
