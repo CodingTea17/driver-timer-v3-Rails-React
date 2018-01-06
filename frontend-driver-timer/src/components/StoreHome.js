@@ -52,8 +52,24 @@ class StoreHome extends Component {
   }
 
   handleAddDriver = (event) => {
-    event.preventDefault;
-    console.log(`store number ${this.state.store_number} added a driver named ${this.state.form['name']} with a phone number ${this.state.form['number']}`);
+    event.preventDefault();
+
+    const store_number = this.state.store_number;
+
+    console.log(`store number ${store_number} added a driver named ${this.state.form['name']} with a phone number ${this.state.form['phone_number']}`);
+
+    fetch(`/api/stores/${store_number}/drivers`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+          name: this.state.form['name'],
+          phone_number: this.state.form['phone_number'],
+          store_number: store_number
+      })
+    });
   }
 
   render() {
@@ -99,7 +115,7 @@ class StoreHome extends Component {
                     >
                       <Form.Group widths='equal'>
                         <Form.Field onChange={ this.updateFormState } name="name" label='Name' control='input' placeholder='Name' />
-                        <Form.Field onChange={ this.updateFormState } name="number" label='Phone Number' control='input' placeholder='(555) 555-5555' />
+                        <Form.Field onChange={ this.updateFormState } name="phone_number" label='Phone Number' control='input' placeholder='(555) 555-5555' />
                       </Form.Group>
                       <Button
                         fluid
