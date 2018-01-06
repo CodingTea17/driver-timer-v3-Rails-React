@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { Icon, Sidebar, Menu, Segment, Grid, Button, Header, Modal } from 'semantic-ui-react'
+import { Icon, Sidebar, Menu, Segment, Grid, Button, Modal } from 'semantic-ui-react'
 
 import Driver from './Driver';
 
 // const driverStyle = {
 //   width: '33%'
 // };
+
+const customMenuStyles = {
+  borderRadius: "0",
+  margin: "0",
+  backgroundColor: '#b71c1c'
+}
 
 class StoreHome extends Component {
   constructor(props) {
@@ -39,23 +45,35 @@ class StoreHome extends Component {
 
     return (
       <div style={ {textAlign: "center"} }>
-        <Menu inverted borderless={true} style={{borderRadius: "0", margin: "0"}}>
+        <Menu
+          inverted
+          borderless={ true }
+          style={ customMenuStyles }
+        >
           <Menu.Item>
             <Icon
-              onClick={this.toggleVisibility}
+              onClick={ this.toggleVisibility }
               inverted
-              name='list layout'
-              size="big" 
+              name='bars'
+              size="big"
             />
           </Menu.Item>
           <Menu.Item>
-            <h1>Store {this.state.store_number}</h1>
+            <h1>Store { this.state.store_number }</h1>
           </Menu.Item>
         </Menu>
-        <Sidebar.Pushable as={Segment} style={{margin: "0"}}>
-          <Sidebar as={Menu} animation='scale down' width='thin' visible={visible} icon='labeled' vertical inverted>
+        <Sidebar.Pushable as={ Segment } style={ {margin: "0"} }>
+          <Sidebar
+            as={ Menu }
+            animation='scale down'
+            width='thin'
+            visible={ visible }
+            icon='labeled'
+            vertical
+            inverted
+          >
             <Menu.Item name='newdriver'>
-              <Modal trigger={<Button fluid inverted>Add Driver</Button>}>
+              <Modal trigger={ <Button fluid inverted>Add Driver</Button> }>
                 <Modal.Header>Add a New Driver</Modal.Header>
                 <Modal.Content>
                   <Modal.Description>
@@ -64,16 +82,16 @@ class StoreHome extends Component {
                 </Modal.Content>
               </Modal>
             </Menu.Item>
-            <div style={{overflow: "auto"}}>
+            <div style={ {overflow: "auto"} }>
               {
                 (this.state.drivers && this.state.drivers.length) && this.state.drivers.map((driver, index) => (
-                  <Menu.Item key={driver.id} style={{textAlign: "left"}}>
+                  <Menu.Item key={ driver.id }>
                     <Button
                       fluid
                       animated
                       inverted
                       color='red'
-                      onClick={() => this.handleDeleteDriver(driver.id)}
+                      onClick={ () => this.handleDeleteDriver(driver.id) }
                     >
                       <Button.Content visible>{driver.name}</Button.Content>
                       <Button.Content hidden>
@@ -87,17 +105,17 @@ class StoreHome extends Component {
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
-              <Grid columns={4}>
+              <Grid stackable columns={ 4 }>
                 <Grid.Row>
                   {
                     // Make sure there are any drivers for the store
                     // TODO: It would be cool to render an example driver or something if a store has no drivers
                     (this.state.drivers && this.state.drivers.length) && this.state.drivers.map((driver, index) => (
-                      <Grid.Column key={driver.id}>
+                      <Grid.Column key={ driver.id }>
                         <Driver
-                          driver={driver}
-                          storeNumber={this.state.store_number}
-                          count={index + 1}
+                          driver={ driver }
+                          storeNumber={ this.state.store_number }
+                          count={ index + 1 }
                         />
                       </Grid.Column>
                     ))
