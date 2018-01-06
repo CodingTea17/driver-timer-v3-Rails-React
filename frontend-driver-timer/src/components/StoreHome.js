@@ -26,7 +26,9 @@ class StoreHome extends Component {
     })
   }
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible });
+  toggleVisibility = () => {
+    this.setState({ visible: !this.state.visible });
+  }
 
   handleDeleteDriver = (driver_id) => {
     console.log("deleted", driver_id);
@@ -39,7 +41,12 @@ class StoreHome extends Component {
       <div style={ {textAlign: "center"} }>
         <Menu inverted borderless={true} style={{borderRadius: "0", margin: "0"}}>
           <Menu.Item>
-            <Icon inverted name="list layout" size="large" onClick={this.toggleVisibility} />
+            <Icon
+              onClick={this.toggleVisibility}
+              inverted
+              name='list layout'
+              size="big" 
+            />
           </Menu.Item>
           <Menu.Item>
             <h1>Store {this.state.store_number}</h1>
@@ -48,7 +55,7 @@ class StoreHome extends Component {
         <Sidebar.Pushable as={Segment} style={{margin: "0"}}>
           <Sidebar as={Menu} animation='scale down' width='thin' visible={visible} icon='labeled' vertical inverted>
             <Menu.Item name='newdriver'>
-              <Modal trigger={<Button inverted>Add Driver</Button>}>
+              <Modal trigger={<Button fluid inverted>Add Driver</Button>}>
                 <Modal.Header>Add a New Driver</Modal.Header>
                 <Modal.Content>
                   <Modal.Description>
@@ -61,15 +68,18 @@ class StoreHome extends Component {
               {
                 (this.state.drivers && this.state.drivers.length) && this.state.drivers.map((driver, index) => (
                   <Menu.Item key={driver.id} style={{textAlign: "left"}}>
-                    <Icon
-                      style={{display: "inline-block"}}
-                      name="minus square outline"
-                      size="large"
-                      onClick={this.handleDeleteDriver(driver.id)}
-                    />
-                    <div style={{display: "inline-block", verticalAlign: "baseline", fontSize: "18px", float: "right"}}>
-                      {driver.name}
-                    </div>
+                    <Button
+                      fluid
+                      animated
+                      inverted
+                      color='red'
+                      onClick={() => this.handleDeleteDriver(driver.id)}
+                    >
+                      <Button.Content visible>{driver.name}</Button.Content>
+                      <Button.Content hidden>
+                        Delete
+                      </Button.Content>
+                    </Button>
                   </Menu.Item>
                 ))
               }
