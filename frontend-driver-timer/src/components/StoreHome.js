@@ -32,6 +32,14 @@ class StoreHome extends Component {
     })
   }
 
+  updateDriverList(response) {
+      window.fetch(`/api/stores/${this.state.store_number}/drivers`).then(data => {
+        data.json().then(res => {
+          this.setState({ drivers: res })
+        });
+      });
+  }
+
   toggleVisibility = () => {
     this.setState({ visible: !this.state.visible });
   }
@@ -39,6 +47,12 @@ class StoreHome extends Component {
   handleDeleteDriver = (driver_id) => {
     fetch(`/api/stores/${this.state.store_number}/drivers/${driver_id}`, {
       method: 'DELETE'
+    })
+    .then((response) => {
+      // Wait for a response before updating the list to make sure the server has finished
+      if (response.status === 200 || response.status === 0) {
+        this.updateDriverList();
+      }
     });
   }
 
@@ -56,11 +70,7 @@ class StoreHome extends Component {
   handleAddDriver = (event) => {
     event.preventDefault();
 
-    const store_number = this.state.store_number;
-
-    console.log(`store number ${store_number} added a driver named ${this.state.form['name']} with a phone number ${this.state.form['phone_number']}`);
-
-    fetch(`/api/stores/${store_number}/drivers`, {
+    fetch(`/api/stores/${this.state.store_number}/drivers`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -68,9 +78,14 @@ class StoreHome extends Component {
       method: 'POST',
       body: JSON.stringify({
           name: this.state.form['name'],
-          phone_number: this.state.form['phone_number'],
-          store_number: store_number
+          phone_number: this.state.form['phone_number']
       })
+    })
+    .then((response) => {
+      // Wait for a response before updating the list to make sure the server has finished
+      if (response.status === 200 || response.status === 0) {
+        this.updateDriverList();
+      }
     });
   }
 

@@ -6,9 +6,9 @@ class Api::DriversController < ApplicationController
   end
 
   def create
-    @store = Store.where(:store_number => params[:store_number]).first
+    @store = Store.where(:store_number => params[:store_id]).first
     @driver = @store.drivers.create!(driver_params)
-    p @store.drivers
+    head :ok
   end
 
   def show
@@ -19,6 +19,7 @@ class Api::DriversController < ApplicationController
   def destroy
     driver = Driver.find(params[:id])
     driver.destroy
+    head :ok
   end
 
   def last_message

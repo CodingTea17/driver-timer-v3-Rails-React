@@ -18,13 +18,15 @@ class Driver extends Component {
   componentDidMount() {
     window.fetch(`/api/stores/${this.state.store_number}/drivers/${this.state.driver.id}/last_message`).then(data => {
       data.json().then(last_message => {
-        const estimatedReturnTime = Date.parse(last_message.message_timestamp) + (last_message.text * 60 * 1000);
-        // console.log("est Time:", (new Date(estimatedReturnTime)).toUTCString());
-        // console.log("sent Time:", (new Date(last_message.message_timestamp).toUTCString()));
-        this.setState({
-          last_message,
-          estimatedReturnTime
-        });
+        if (last_message) {
+          const estimatedReturnTime = Date.parse(last_message.message_timestamp) + (last_message.text * 60 * 1000);
+          // console.log("est Time:", (new Date(estimatedReturnTime)).toUTCString());
+          // console.log("sent Time:", (new Date(last_message.message_timestamp).toUTCString()));
+          this.setState({
+            last_message,
+            estimatedReturnTime
+            });
+        }
       })
     })
     const cable = ActionCable.createConsumer('ws://localhost:3001/api/cable')
