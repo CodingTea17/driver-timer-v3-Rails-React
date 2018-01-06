@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Sidebar, Menu, Segment, Grid, Button, Modal } from 'semantic-ui-react'
+import { Icon, Sidebar, Menu, Segment, Grid, Button, Modal, Form } from 'semantic-ui-react'
 
 import Driver from './Driver';
 
@@ -10,7 +10,7 @@ import Driver from './Driver';
 const customMenuStyles = {
   borderRadius: "0",
   margin: "0",
-  backgroundColor: '#b71c1c'
+  // backgroundColor: '#b71c1c'
 }
 
 class StoreHome extends Component {
@@ -19,8 +19,8 @@ class StoreHome extends Component {
     this.state = {
       visible: false,
       drivers: [],
-      store_number: this.props.match.params.id
-
+      store_number: this.props.match.params.id,
+      form: {}
     };
   }
 
@@ -38,6 +38,22 @@ class StoreHome extends Component {
 
   handleDeleteDriver = (driver_id) => {
     console.log("deleted", driver_id);
+  }
+
+  updateFormState = (e) => {
+    const valueName = e.target.name;
+    const newValue = e.target.value;
+    this.setState({
+      form: {
+        ...this.state.form,
+        ...{[valueName] : newValue}
+      }
+    });
+  }
+
+  handleAddDriver = (event) => {
+    event.preventDefault;
+    console.log(`store number ${this.state.store_number} added a driver named ${this.state.form['name']} with a phone number ${this.state.form['number']}`);
   }
 
   render() {
@@ -74,10 +90,27 @@ class StoreHome extends Component {
           >
             <Menu.Item name='newdriver'>
               <Modal trigger={ <Button fluid inverted>Add Driver</Button> }>
-                <Modal.Header>Add a New Driver</Modal.Header>
+                <Modal.Header style={ {textAlign: "center"} }>Add New Driver</Modal.Header>
                 <Modal.Content>
                   <Modal.Description>
-                    <p>I am a new driver form</p>
+                    <Form
+                      size="huge"
+                      onSubmit={this.handleAddDriver}
+                    >
+                      <Form.Group widths='equal'>
+                        <Form.Field onChange={ this.updateFormState } name="name" label='Name' control='input' placeholder='Name' />
+                        <Form.Field onChange={ this.updateFormState } name="number" label='Phone Number' control='input' placeholder='(555) 555-5555' />
+                      </Form.Group>
+                      <Button
+                        fluid
+                        inverted
+                        color='green'
+                        size="big"
+                        type='submit'
+                      >
+                        Submit
+                      </Button>
+                    </Form>
                   </Modal.Description>
                 </Modal.Content>
               </Modal>
