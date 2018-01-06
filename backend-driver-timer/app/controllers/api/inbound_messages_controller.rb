@@ -6,7 +6,7 @@ class Api::InboundMessagesController < ApplicationController
     @new_message = driver.messages.new(:from => driver_phone_number,:text => params["text"],:message_id => params["messageId"],:message_timestamp => params["message-timestamp"])
 
     if @new_message.save!
-      ActionCable.server.broadcast "store-#{driver.store.store_number}:messages",
+      ActionCable.server.broadcast "store-#{driver.store.store_number}-driver-#{driver.id}:messages",
       new_message: @new_message
       # No render but still let server know it's all good
       head :ok
