@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20171218185107) do
 
   create_table "stores", force: :cascade do |t|
     t.integer "store_number"
+    t.string "address"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

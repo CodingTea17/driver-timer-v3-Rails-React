@@ -7,10 +7,17 @@ import Driver from './Driver';
 //   width: '33%'
 // };
 
-const customMenuStyles = {
+const menuStyles = {
   borderRadius: "0",
   margin: "0",
   // backgroundColor: '#b71c1c'
+}
+
+const sideBarStyles = {
+  minHeight: "100vh",
+  margin: "0",
+  border: "0",
+  borderRadius: "0"
 }
 
 class StoreHome extends Component {
@@ -97,7 +104,7 @@ class StoreHome extends Component {
         <Menu
           inverted
           borderless={ true }
-          style={ customMenuStyles }
+          style={ menuStyles }
         >
           <Menu.Item>
             <Icon
@@ -111,7 +118,7 @@ class StoreHome extends Component {
             <h1>Store { this.state.store_number }</h1>
           </Menu.Item>
         </Menu>
-        <Sidebar.Pushable as={ Segment } style={ {margin: "0"} }>
+        <Sidebar.Pushable as={ Segment } style={ sideBarStyles }>
           <Sidebar
             as={ Menu }
             animation='scale down'
@@ -170,25 +177,23 @@ class StoreHome extends Component {
             </div>
           </Sidebar>
           <Sidebar.Pusher>
-            <Segment basic>
-              <Grid stackable columns={ 4 }>
-                <Grid.Row>
-                  {
-                    // Make sure there are any drivers for the store
-                    // TODO: It would be cool to render an example driver or something if a store has no drivers
-                    (this.state.drivers && this.state.drivers.length) && this.state.drivers.map((driver, index) => (
-                      <Grid.Column key={ driver.id }>
-                        <Driver
-                          driver={ driver }
-                          storeNumber={ this.state.store_number }
-                          count={ index + 1 }
-                        />
-                      </Grid.Column>
-                    ))
-                  }
-                </Grid.Row>
-              </Grid>
-            </Segment>
+            <Grid stackable columns={ 4 } style={ {marginTop: "0px"} }>
+              <Grid.Row>
+                {
+                  // Make sure there are any drivers for the store
+                  // TODO: It would be cool to render an example driver or something if a store has no drivers
+                  (this.state.drivers && this.state.drivers.length) && this.state.drivers.map((driver, index) => (
+                    <Grid.Column key={ driver.id }>
+                      <Driver
+                        driver={ driver }
+                        storeNumber={ this.state.store_number }
+                        count={ index + 1 }
+                      />
+                    </Grid.Column>
+                  ))
+                }
+              </Grid.Row>
+            </Grid>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>
