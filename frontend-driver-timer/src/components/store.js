@@ -5,10 +5,10 @@ function Store(props){
   return (
     <div>
       <NavLink
-        to={`/store/${props.store.store_number}`}
+        to={`/stores/${props.store.store_number}`}
         activeClassName='is-active'
       >
-        {props.store.store_number}
+        { `${props.store.store_number}: ${props.store.address}` }
       </NavLink>
     </div>
   );

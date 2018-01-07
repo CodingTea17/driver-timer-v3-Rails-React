@@ -11,7 +11,7 @@ class Driver extends Component {
       last_message: {},
       driver: this.props.driver,
       store_number: this.props.storeNumber,
-      play_sound: false
+      play_sound: false,
     };
   }
 

@@ -9,7 +9,7 @@ const AppRouter = () => (
     <div>
       <Switch>
         <Route path='/' component={Home} exact={true} />
-        <Route path='/store/:id' component={StoreHome} />
+        <Route path='/stores/:id' component={StoreHome} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
