@@ -1,0 +1,6 @@
+[submodule "backend-production"]
+	path = backend-production
+	url = https://github.com/CodingTea17/drivertimer-prod-backend
+[submodule "frontend-production"]
+	path = frontend-production
+	url = https://github.com/CodingTea17/drivertimer-prod-frontend
