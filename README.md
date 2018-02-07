@@ -39,7 +39,16 @@ The menu is toggled from the icon in the top left and shows options to add and d
 ![](./live_app_images/timer_demo.png "Timer Demo")
 The timer counts down displaying a progress circle and the expected amount of time until the driver will return.
 
-#### Setup (Development)
+## Setup
+  NOTICE: I got carried away with setting up the production environment (it took a lot of trial and error to get Redis up on Heroku and the two separate apps running in unison) and as a result it has more design and features than the development version. I'm working on a solution to merge the two, but until then I've created a production branch which contains the two Heroku deployable applications.
+
+#### Production
+  * TBA
+
+  ![](./setup_images/heroku_env_config.png "Configuration for Environment Variables in Heroku")
+  
+
+#### Development
   * After successfully cloning the project, `cd driver-timer-v3-Rails-React/backend-driver-timer` and execute `bundle install`. This will install all the required ruby gems inside of the rails project directory.
   * This project requires access to a [Nexmo](https://www.nexmo.com/) SMS phone number. It is not free. However, for the purpose of this project it will only cost ~$1.00 per month because we are only concerned with incoming SMS messages.
   * You need to install ngrok which allows us to open a secure tunnel to localhost so that Nexmo's servers can find our locally running project. Once installed run `ngrok http 3001` (the port which the rails backend will be operating on).   
