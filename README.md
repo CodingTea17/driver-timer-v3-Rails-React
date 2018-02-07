@@ -1,7 +1,7 @@
-# Driver Timer v3 (Dracula)
+# Driver Timer v3
 
 ##### Check out v1 [here](https://github.com/CodingTea17/driver-timer-v1-php "Frankenstein").
-##### Check out v2 [here](https://github.com/CodingTea17/driver-timer-v2-mongo-express-node "Nessie").
+##### Check out v2 [here](https://github.com/CodingTea17/driver-timer-v2-mongo-express-node).
 
 ## Concept
 
@@ -21,10 +21,23 @@ The idea was to create a simple application to increase delivery efficiency. Dri
 
 #### Goals of the 3rd Driver Timer (Rails, React, Postgres):
 
-  * Restructure the project to a RESTful backend API and a modular frontend collection of React components.
-  * Implement full CRUD functionality for managing drivers.
-  * Implement Websockets to get live data for each store's drivers.
+* Restructure the project to a RESTful backend API and a modular frontend collection of React components.
+* Implement full CRUD functionality for managing drivers.
+* Implement Websockets to get live data for each store's drivers.
 
+
+## Images from Live Implementation for Pizza Guys (VKS Inc.)
+![](./live_app_images/driver_timer_homepage.png "Homepage")
+The homepage has a map and a list of all the Pizza Guys stores (scraped from the Pizza Guys Website).
+
+![](./live_app_images/store_page.png "Store Page")
+The store page displays the store's drivers and their countdowns. There's a link to the homepage and a toggler for the menu.
+
+![](./live_app_images/store_menu.png "Store Menu")
+The menu is toggled from the icon in the top left and shows options to add and delete drivers.
+
+![](./live_app_images/timer_demo.png "Timer Demo")
+The timer counts down displaying a progress circle and the expected amount of time until the driver will return.
 
 #### Setup (Development)
   * After successfully cloning the project, `cd driver-timer-v3-Rails-React/backend-driver-timer` and execute `bundle install`. This will install all the required ruby gems inside of the rails project directory.
