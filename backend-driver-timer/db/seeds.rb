@@ -5,8 +5,8 @@ Store.destroy_all
 Driver.destroy_all
 Message.destroy_all
 
-require 'Nokogiri'
-require 'HTTParty'
+require 'nokogiri'
+require 'httparty'
 
 class Scrapper
   attr_accessor :parse_page

@@ -138,17 +138,20 @@ DEPENDENCIES
   bcrypt (~> 3.1.11)
   byebug
   foreman (~> 0.64.0)
-  httparty
+  httparty (~> 0.15.6)
   listen (>= 3.0.5, < 3.2)
-  nokogiri
+  nokogiri (~> 1.8.1)
   pg (~> 0.18)
   pry
   puma (~> 3.7)
-  rack-cors
+  rack-cors (~> 1.0.2)
   rails (~> 5.1.4)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+
+RUBY VERSION
+   ruby 2.4.3p205
 
 BUNDLED WITH
    1.16.0
